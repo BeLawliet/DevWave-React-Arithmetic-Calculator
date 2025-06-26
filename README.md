@@ -1,12 +1,66 @@
-# React + Vite
+![Descripción alternativa](src/assets/calculator-image.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Calculadora Aritmética - React
 
-Currently, two official plugins are available:
+Esta es una aplicación web de calculadora aritmética desarrollada con **React** y **Vite**. Permite a los usuarios realizar operaciones básicas como suma, resta, multiplicación, división, potenciación y raíz cuadrada, con un historial de operaciones y un manejo amigable de errores.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+- ⚛️ React
+- ⚡ Vite
+- 🎨 Tailwind CSS (si lo estás usando)
+- 🛠 Zustand (para manejo de estado, si aplica)
+- 📦 Node.js
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📂 Estructura del Proyecto
+
+```
+src/
+├── assets/         # Imágenes y recursos estáticos
+├── components/     # Componentes reutilizables
+├── context/        # Proveedores de contexto (si aplica)
+├── hooks/          # Hooks personalizados
+├── router/         # Configuración de rutas
+├── store/          # Manejo de estado (Zustand u otros)
+├── App.jsx         # Componente principal
+├── index.css       # Estilos globales
+└── main.jsx        # Punto de entrada
+```
+
+## ✨ Funcionalidades
+
+- ✅ Suma, resta, multiplicación y división.
+- ✅ Potenciación y raíz cuadrada.
+- ✅ Historial de operaciones realizadas.
+- ✅ Interfaz amigable y responsive.
+- ✅ Manejo de errores para operaciones inválidas.
+- ✅ (Opcional) Persistencia de historial (si implementaste `localStorage` o similar).
+
+## 📸 Capturas
+
+*(Aquí puedes agregar screenshots de la calculadora funcionando y del historial si deseas)*
+
+## 🔧 Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/BeLawliet/DevWave-React-Arithmetic-Calculator.git
+   ```
+2. Entra al proyecto:
+   ```bash
+   cd DevWave-React-Arithmetic-Calculator
+   ```
+3. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+4. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+## 🧮 Uso
+
+- Ingresa los números y selecciona la operación deseada.
+- Visualiza el resultado y el historial.
+- Utiliza los botones para limpiar o eliminar registros.
