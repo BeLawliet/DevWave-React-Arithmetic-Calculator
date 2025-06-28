@@ -2,7 +2,7 @@ import { OperationItem } from "./OperationItem"
 
 export const OperationList = ({ operations }) => {
     return (
-        <table className="min-w-full text-sm text-left text-gray-500">
+        <table className="min-w-7xl shadow-md text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-[#fdf7f2] border-b">
                         <tr>
                             <th className="px-6 py-4">ID</th>
@@ -16,7 +16,7 @@ export const OperationList = ({ operations }) => {
 
                     <tbody>
                         {
-                            operations.map(operation => <OperationItem { ...operation } />)
+                            operations.map(operation => <OperationItem key={ operation.id } { ...operation } />)
                         }
                     </tbody>
         </table>

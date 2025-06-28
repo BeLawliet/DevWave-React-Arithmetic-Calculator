@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 
 export const AUTHENTICATION_LOGIN = 'AUTHENTICATION LOGIN';
+export const AUTHENTICATION_LOGOUT = 'AUTHENTICATION LOGOUT';
 export const AUTHENTICATION_REGISTER = 'AUTHENTICATION REGISTER';
 
 export const validateFields = (...args) => {
@@ -19,4 +20,20 @@ export const showMessage = (type, title, message) => {
         title: title,
         text: message,
     });
+}
+
+export const formatDate = timestamp => {
+    const date = new Date(timestamp);
+
+    const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    }
+
+    return date.toLocaleDateString('es-CO', options);
 }

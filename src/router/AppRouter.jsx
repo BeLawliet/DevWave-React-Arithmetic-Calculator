@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { LoginPage, RegisterPage } from "../components";
-import { OperationRoutes } from "../components/routes/OperationRoutes";
+import { LoginPage, RegisterPage, NotFound, HomePage, CalculatePage } from "../components";
+import { PrivateRoutes } from "./PrivateRoutes";
 
 export const AppRouter = () => {
     return (
@@ -8,8 +8,13 @@ export const AppRouter = () => {
             <Route path="/" element={ <Navigate to="/login" /> } />
             <Route path="login" element={ <LoginPage/> } />
             <Route path="register" element={ <RegisterPage/> } />
-            <Route path="*" element={ <OperationRoutes/> } />
+
+            <Route element={ <PrivateRoutes /> }>
+                <Route path="home" element={ <HomePage /> } />
+                <Route path="calculate" element={ <CalculatePage /> } />
+            </Route>
+
+            <Route path="*" element={ <NotFound /> } />
         </Routes>
     )
 }
-

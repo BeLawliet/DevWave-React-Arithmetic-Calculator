@@ -1,16 +1,15 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
-import { registerUser } from "../../store/services/authService";
+import { AuthContext } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
-import { AUTHENTICATION_REGISTER, showMessage, validateFields } from "../../store/utils";
+import { showMessage, validateFields } from "../../store/utils";
 
 export const RegisterPage = () => {
-    const { username, password, email, onInputChange } = useForm({ username: '', password: '', email: '' });
-    const { dispatch } = useContext(AppContext);
+    const { username, password, email, form, onInputChange } = useForm({ username: '', password: '', email: '' });
+    const { registerNewUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const onSubmitForm = (event) => {
+    const onSubmitForm = async (event) => {
         event.preventDefault();
 
         if (!validateFields(username, password, email)) {
@@ -19,31 +18,24 @@ export const RegisterPage = () => {
             return;
         }
 
-        const data = {
-            username,
-            password,
-            email
-        }
+        await registerNewUser(form);
 
-        registerUser(data).then(response => {
-                                    dispatch({
-                                        type: AUTHENTICATION_REGISTER,
-                                        payload: response
-                                    });
-
-                                    navigate('/home', { replace: true });
-                                })
-                          .catch(error => {
-                                showMessage('error', 'Oops...', error.message);
-                          });
+        navigate('/home', { replace: true });
     }
 
     return (
         <div className="min-h-screen bg-[#fdf7f2] flex items-center justify-center">
             <div className="bg-white w-full max-w-md p-8 rounded-3xl shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-2">Arithmetic User</h2>
-        
-                <form onSubmit={ onSubmitForm } className="space-y-4">
+                <button
+                    onClick={ () => navigate(-1) }
+                    className="mb-6 px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-xl shadow transition duration-300"
+                >
+                    Back
+                </button>
+
+                <form onSubmit={ onSubmitForm } className="bg-white p-8 rounded-3xl shadow-md space-y-6">
+                    <h2 className="text-2xl font-bold text-center mb-5">Arithmetic User</h2>
+
                     <input
                         type="text"
                         placeholder="Enter Username"
@@ -69,6 +61,7 @@ export const RegisterPage = () => {
                         <input
                             type="email"
                             placeholder="Email"
+                            autoComplete="off"
                             className="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300"
                             name="email"
                             value={ email }

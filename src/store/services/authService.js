@@ -4,11 +4,11 @@ export const loginUser = async (credentials) => {
     const endpointLogin = config.urlDev + config.endpoints.auth.login;
 
     const httpApi = await fetch(endpointLogin, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(credentials)
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify(credentials)
     });
 
     const response = await httpApi.json();

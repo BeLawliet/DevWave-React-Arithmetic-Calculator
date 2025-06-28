@@ -1,13 +1,12 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../../context/AppContext";
-import { loginUser } from "../../store/services/authService";
+import { AuthContext } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
-import { AUTHENTICATION_LOGIN, showMessage, validateFields } from "../../store/utils";
+import { showMessage, validateFields } from "../../store/utils";
 
 export const LoginPage = () => {
     const { username, password, form, onInputChange } = useForm({ username: '', password: '' });
-    const { dispatch } = useContext(AppContext);
+    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmitForm = async (event) => {
@@ -15,33 +14,25 @@ export const LoginPage = () => {
 
         if (!validateFields(username, password)) {
             showMessage('error', 'Oops...', 'All fields are requireds');
-
             return;
         }
 
-        loginUser(form).then(response => {
-                                dispatch({
-                                    type: AUTHENTICATION_LOGIN,
-                                    payload: response
-                                });
+        await login(form);
 
-                                navigate('/home', { replace: true });
-                            })
-                       .catch(error => {
-                            showMessage('error', 'Oops...', error.message);
-                       });
+        navigate('/home', { replace: true });
     }
 
     return (
         <div className="min-h-screen bg-[#fdf7f2] flex items-center justify-center">
             <div className="bg-white w-full max-w-md p-8 rounded-3xl shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-2">Arithmetic Login</h2>
-                
-                <p className="text-center text-gray-500 mb-6">
-                    Enter your details to get sign in to your account
-                </p>
         
-                <form className="space-y-4" onSubmit={ onSubmitForm }>
+                <form className="bg-white p-8 rounded-3xl shadow-md space-y-6" onSubmit={ onSubmitForm }>
+                    <h2 className="text-2xl font-bold text-center mb-2">Arithmetic Login</h2>
+                    
+                    <p className="text-center text-gray-500 mb-6">
+                        Enter your details to get sign in to your account
+                    </p>
+                    
                     <input
                         type="text"
                         placeholder="Enter Username"
