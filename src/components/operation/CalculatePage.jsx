@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "../../hooks/useForm"
+import { useForm } from "../../hooks/useForm";
 import { showMessage, validateFields } from "../../store/utils";
-import { calculateOperation } from "../../store/services/operationService";
+import { OperationContext } from "../../context/OperationContext";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 
 export const CalculatePage = () => {
     const { operation, operandA, operandB, onInputChange } = useForm({ operation: 'ADDITION', operandA: '', operandB: '' });
-    const { accessToken } = useContext(AuthContext);
+    const { newOperation } = useContext(OperationContext);
     const navigate = useNavigate();
 
     const onFormSubmit = async (event) => {
@@ -24,7 +23,7 @@ export const CalculatePage = () => {
             operandB: Number(operandB),
         }
 
-        await calculateOperation(data, accessToken);
+        await newOperation(data);
 
         navigate('/home');
     }

@@ -36,3 +36,21 @@ export const getOperationHistory = async (accessToken) => {
 
     return response;
 }
+
+export const deleteOperation = async (id, accessToken) => {
+    const endpointDelete = `${ config.urlDev }${ config.endpoints.operations.history }/${ id }`;
+
+    const httpApi = await fetch(endpointDelete, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${ accessToken }`
+                                    }
+    });
+
+    const response = await httpApi.text();
+
+    if (!httpApi.ok) throw new Error(response.message);
+
+    return response;
+}

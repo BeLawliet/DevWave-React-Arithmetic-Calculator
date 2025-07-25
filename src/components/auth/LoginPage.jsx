@@ -17,9 +17,12 @@ export const LoginPage = () => {
             return;
         }
 
-        await login(form);
-
-        navigate('/home', { replace: true });
+        try {
+            await login(form);
+            navigate('/home', { replace: true });
+        } catch (error) {
+            showMessage('error', 'Oops...', error.message);
+        }
     }
 
     return (

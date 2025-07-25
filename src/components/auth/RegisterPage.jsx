@@ -18,9 +18,12 @@ export const RegisterPage = () => {
             return;
         }
 
-        await registerNewUser(form);
-
-        navigate('/home', { replace: true });
+        try {
+            await registerNewUser(form);
+            navigate('/home', { replace: true });
+        } catch (error) {
+            showMessage('error', 'Oops...', error.message);
+        }
     }
 
     return (

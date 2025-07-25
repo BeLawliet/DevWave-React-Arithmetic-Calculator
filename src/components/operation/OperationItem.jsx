@@ -18,7 +18,8 @@ export const OperationItem = ({ id, operandA, operandB, result, timestamp }) => 
                     
                     <button
                         data-id={ id }
-                        className="px-3 py-1 text-sm text-white bg-red-400 hover:bg-red-500 rounded-lg transition">
+                        className="px-3 py-1 text-sm text-white bg-red-400 hover:bg-red-500 rounded-lg transition"
+                    >
                         Delete
                     </button>
                 </div>
