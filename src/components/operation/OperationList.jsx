@@ -1,24 +1,31 @@
-import { OperationItem } from "./OperationItem"
+import { OperationItem } from "./OperationItem";
 
-export const OperationList = ({ operations }) => {
+export const OperationList = ({ operations, onDelete }) => {
     return (
-        <table className="min-w-7xl shadow-md text-sm text-left text-gray-500">
-                    <thead className="text-xs text-gray-700 uppercase bg-[#fdf7f2] border-b">
+        <div className="overflow-hidden bg-white rounded-2xl shadow-lg">
+            <div className="max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-300 scrollbar-track-orange-50">
+                <table className="min-w-full text-sm text-left text-gray-700">
+                    <thead className="text-xs uppercase bg-orange-100 text-gray-800 sticky top-0 z-10">
                         <tr>
                             <th className="px-6 py-4">ID</th>
+                            <th className="px-6 py-4">Operation</th>
                             <th className="px-6 py-4">Operand A</th>
                             <th className="px-6 py-4">Operand B</th>
                             <th className="px-6 py-4">Result</th>
                             <th className="px-6 py-4">Timestamp</th>
-                            <th className="px-6 py-4">Actions</th>
+                            <th className="px-6 py-4 text-center">Actions</th>
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody className="divide-y divide-orange-50">
                         {
-                            operations.map(operation => <OperationItem key={ operation.id } { ...operation } />)
+                            operations.map(operation => (
+                                <OperationItem key={ operation.id } { ...operation } onDelete={ onDelete } />
+                            ))
                         }
                     </tbody>
-        </table>
+                </table>
+            </div>
+        </div>
     )
 }
