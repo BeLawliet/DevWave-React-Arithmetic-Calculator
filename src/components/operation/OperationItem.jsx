@@ -14,13 +14,7 @@ export const OperationItem = ({ id, operation, operandA, operandB, result, times
             <td className="px-6 py-4">{ formatDate(timestamp) }</td>
 
             <td className="px-6 py-4 text-center">
-                <div className="flex justify-center gap-2">
-                    <button
-                        className="px-3 py-1.5 text-xs font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-md transition"
-                    >
-                        Edit
-                    </button>
-
+                <div className="flex justify-center">
                     <button
                         onClick={ () => onDelete(id) }
                         className="px-3 py-1.5 text-xs font-semibold text-white bg-red-500 hover:bg-red-600 rounded-md transition"

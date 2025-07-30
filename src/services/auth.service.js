@@ -10,7 +10,8 @@ export class AuthService {
             return data;
         } catch (error) {
             if (error instanceof AxiosError) {
-                return error.response?.data;
+                const message = error.response?.data.details[0];
+                throw new Error(message);
             }
 
             throw new Error("Something's wrong, please contact to Admin");
@@ -24,7 +25,7 @@ export class AuthService {
             return data;
         } catch (error) {
             if (error instanceof AxiosError) {
-                return error.response?.data;
+                throw new Error(error.response?.data.details[0]);
             }
 
             throw new Error("Something's wrong, please contact to Admin");

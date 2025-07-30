@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { Filter, Loader, OperationList } from "..";
 import { useAuthStore } from "../../store/auth.store";
 import { useOperation } from "../../hooks/useOperation";
+import { useState } from "react";
 
 export const Home = () => {
-    const { operations, isLoading, hasNextPage, fetchNextPage, deleteOperation } = useOperation();
+    const [ filters, setFilters ] = useState({ direction: 'asc', field: 'timestamp', operation: '', startDate: '', endDate: ''});
+    const { operations, isLoading, hasNextPage, fetchNextPage, deleteOperation } = useOperation(filters);
     const username = useAuthStore(state => state.username);
     const logout = useAuthStore(state => state.logout);
     const navigate = useNavigate();
@@ -18,13 +20,16 @@ export const Home = () => {
         deleteOperation(operationId);
     }
 
+    const handleApplyFilters = (newFilters) => {
+        setFilters(newFilters); 
+    }
+
     return (
         <div className="min-h-screen bg-[#fdf7f2] px-4 py-8">
-            {/* Header */}
             <header className="flex justify-between items-center bg-white rounded-3xl shadow p-6 mb-8 max-w-4xl mx-auto">
                 <div className="flex flex-col">
                     <span className="text-sm text-gray-500">Welcome back</span>
-                    <h1 className="text-2xl font-bold text-gray-800 tracking-tight">{ username.toUpperCase() }</h1>
+                    <h1 className="text-2xl font-bold text-gray-800 tracking-tight">{ username?.toUpperCase() || 'User' }</h1>
                 </div>
 
                 <div className="flex gap-3">
@@ -44,6 +49,8 @@ export const Home = () => {
                 </div>
             </header>
 
+            <Filter onApply={ handleApplyFilters } initialFilters={ filters } />
+
             { (isLoading) && (<Loader/>) }
 
             {
@@ -60,28 +67,24 @@ export const Home = () => {
                 (operations.length > 0)
                 &&
                 (
-                    <>
-                        <Filter/>
-
-                        <div className="flex flex-col items-center mt-5">
-                            <div className="flex justify-center mt-5">
-                                <OperationList operations={ operations } onDelete={ onDelete } />
-                            </div>
-
-                            {
-                                (hasNextPage)
-                                &&
-                                (
-                                    <button
-                                        onClick={ () => fetchNextPage() }
-                                        className="mt-6 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-white font-semibold rounded-xl shadow transition duration-300"
-                                    >
-                                        Load More
-                                    </button>
-                                )
-                            }
+                    <div className="flex flex-col items-center mt-5">
+                        <div className="flex justify-center mt-5">
+                            <OperationList operations={ operations } onDelete={ onDelete } />
                         </div>
-                    </>
+
+                        {
+                            (hasNextPage)
+                            &&
+                            (
+                                <button
+                                    onClick={ () => fetchNextPage() }
+                                    className="mt-6 px-4 py-2 bg-gray-300 hover:bg-gray-400 text-white font-semibold rounded-xl shadow transition duration-300"
+                                >
+                                    Load More
+                                </button>
+                            )
+                        }
+                    </div>
                 )
             }
         </div>
